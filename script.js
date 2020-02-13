@@ -35,16 +35,49 @@ questions.push({
   tag: "food"
 });
 
-// TODO follow dad's structure on Hangouts, comprehend it, ONE STEP AT A TIME
+// TODO follow dad's structure on Hangouts, comprehend it, ONE STEP AT A TIME:
+
+// first you pick a random number between 1 and 4
+// thats the spot for your correct answer
+// your incorrect answers are in an array of size 3
+// copy those into a new array
+// then pick a random number between 1 and 3
+// take that one out of the array and put into a new array
+// then pick a random number between 1 and 2
+// and grab that one and put it in the new array
+// then put the last one in your new array
+// now you have a new array with the 3 wrong answers in a random order
+// then youcan just pull them off the array in the order they happen to be in and put them in the remaining answer slots
+
 // Returns a randomized array
 const randomizeArray = question => {
-  let wrongAnswers = new Array();
-  let correctIndex = Math.floor(Math.random() * 3 + 1);
-  let wrongArrayIndex = Math.floor(Math.random() * 2 + 1);
-
+  // Random number between 0 and 3
+  let correctIndex = Math.floor(Math.random() * 3);
+  // Set random button value to the correct answer
   document
     .getElementById("answer" + correctIndex)
     .setAttribute("value", question.correctAnswer);
+
+  // New arrays of wrong answers and then randomized array
+  let wrongAnswers = new Array();
+  let randomizedWrong = new Array();
+  wrongAnswers.push(question.wrongAnswers[0]);
+  wrongAnswers.push(question.wrongAnswers[1]);
+  wrongAnswers.push(question.wrongAnswers[2]);
+  // Random number between 0 and 2
+  let wrongArrayIndex1 = Math.floor(Math.random() * 2);
+  // Push element at index from above onto new array
+  randomizedWrong.push(wrongAnswers[wrongArrayIndex1]);
+  // Get ride of element at that index for the future
+  wrongAnswers.splice(wrongArrayIndex1, 1);
+  // Random number between 0 and 1
+  let wrongArrayIndex2 = Math.floor(Math.random());
+  // Push element at index from above onto new array
+  randomizedWrong.push(wrongAnswers[wrongArrayIndex2]);
+  // Get ride of element at that index for the future
+  wrongAnswers.splice(wrongArrayIndex2, 1);
+  // Push final element onto array
+  randomizedWrong.push(wrongAnswers[0]);
 };
 
 // Sets answers
