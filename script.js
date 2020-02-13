@@ -68,13 +68,13 @@ const randomizeArray = question => {
   let wrongArrayIndex1 = Math.floor(Math.random() * 2);
   // Push element at index from above onto new array
   randomizedWrong.push(wrongAnswers[wrongArrayIndex1]);
-  // Get ride of element at that index for the future
+  // Get rid of element at that index for the future
   wrongAnswers.splice(wrongArrayIndex1, 1);
   // Random number between 0 and 1
   let wrongArrayIndex2 = Math.floor(Math.random());
   // Push element at index from above onto new array
   randomizedWrong.push(wrongAnswers[wrongArrayIndex2]);
-  // Get ride of element at that index for the future
+  // Get rid of element at that index for the future
   wrongAnswers.splice(wrongArrayIndex2, 1);
   // Push final element onto array
   randomizedWrong.push(wrongAnswers[0]);
