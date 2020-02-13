@@ -1,3 +1,12 @@
+// import {
+//   questions
+// } from "./questions.js";
+
+/*
+  HALT! This code is pretty shitty, so maybe don't use it?
+  Use the other one, it is better.
+*/
+
 let questions = new Array();
 
 questions.push({
@@ -35,98 +44,78 @@ questions.push({
   tag: "food"
 });
 
-// TODO follow dad's structure on Hangouts, comprehend it, ONE STEP AT A TIME
-// Returns a randomized array
-const randomizeArray = question => {
-  let wrongAnswers = new Array();
-  let correctIndex = Math.floor(Math.random() * 3 + 1);
-  let wrongArrayIndex = Math.floor(Math.random() * 2 + 1);
+// TODO put these things inside functions to get questions. Also find out how to actually submit answers with buttons, etc.
+window.addEventListener("DOMContentLoaded", () => {
+  // Shortcuts for question and answer divs in HTML page
+  let question = document.getElementById("question");
+  let answerOne = document.getElementById("answerOne");
+  let answerTwo = document.getElementById("answerTwo");
+  let answerThree = document.getElementById("answerThree");
+  let answerFour = document.getElementById("answerFour");
+  let submitButton = document.getElementById("submitAnswer");
+  // Ugly, I know. Don't worry
+  let userAnswer;
 
-  document
-    .getElementById("answer" + correctIndex)
-    .setAttribute("value", question.correctAnswer);
-};
+  // Gives first question by creating radio buttons within the divs so they are block oriented.
+  // Name field makes them connected so you can only choose one.
+  const initializeQuestion = () => {
+    let i = Math.floor(Math.random() * questions.length);
+    question.innerHTML = questions[i].question;
+    answerOne.innerHTML =
+      '<input id="buttonOne" name="answer" type="radio" value="' +
+      questions[i].correctAnswer +
+      '"/>' +
+      questions[i].correctAnswer;
+    answerTwo.innerHTML =
+      '<input id="buttonTwo" name="answer" type="radio" value="' +
+      questions[i].wrongAnswers[0] +
+      '"/>' +
+      questions[i].wrongAnswers[0];
+    answerThree.innerHTML =
+      '<input id="buttonThree" name="answer" type="radio" value="' +
+      questions[i].wrongAnswers[1] +
+      '">' +
+      questions[i].wrongAnswers[1];
+    answerFour.innerHTML =
+      '<input id="buttonFour" name="answer" type="radio" value="' +
+      questions[i].wrongAnswers[2] +
+      '">' +
+      questions[i].wrongAnswers[2];
+  };
 
-// Sets answers
-const loadQuestion = question => {
-  // Get question
-  let activeQuestion = document.getElementById("question");
+  // Sets a variable to the user's input
+  const chooseAnswer = answer => {
+    userAnswer = answer.getAttribute("value");
+    return userAnswer;
+  };
 
-  // Get labels
-  let answer1Label = document.getElementById("answer1Label");
-  let answer2Label = document.getElementById("answer2Label");
-  let answer3Label = document.getElementById("answer3Label");
-  let answer4Label = document.getElementById("answer4Label");
+  // Temporarily alerts the user on the answer they pick, for testing purposes
+  const submitAnswer = () => {
+    alert(userAnswer);
+  };
 
-  // Get radio buttons
-  let answer1 = document.getElementById("answer1");
-  let answer2 = document.getElementById("answer2");
-  let answer3 = document.getElementById("answer3");
-  let answer4 = document.getElementById("answer4");
+  initializeQuestion();
 
-  // Set question
-  activeQuestion.innerHTML = question.question;
+  let buttonOne = document.getElementById("buttonOne");
+  let buttonTwo = document.getElementById("buttonTwo");
+  let buttonThree = document.getElementById("buttonThree");
+  let buttonFour = document.getElementById("buttonFour");
 
-  // Set text to answers
-  answer1Label.innerHTML = question.correctAnswer;
-  answer2Label.innerHTML = question.wrongAnswers[0];
-  answer3Label.innerHTML = question.wrongAnswers[1];
-  answer4Label.innerHTML = question.wrongAnswers[2];
-
-  // Set value of radio buttons to answers
-  answer1.setAttribute("value", question.correctAnswer);
-  answer2.setAttribute("value", question.wrongAnswers[0]);
-  answer3.setAttribute("value", question.wrongAnswers[1]);
-  answer4.setAttribute("value", question.wrongAnswers[2]);
-};
-
-// Gets a random index of questions array, then loads a question of that index
-const loadRandomQuestion = () => {
-  let randomIndex = Math.floor(Math.random() * questions.length);
-  loadQuestion(questions[randomIndex]);
-};
-
-// Loads a question with a different tag
-const loadDifferentTag = tag => {
-  let notThisTag = questions.filter(tag => question.tag !== tag);
-  let randomIndex = Math.floor(Math.random() * notThisTag.length);
-  loadQuestion(notThisTag[randomIndex]);
-};
-
-// Loads a question with the same tag
-const loadSameTag = tag => {
-  let thisTag = questions.filter(tag => question.tag === tag);
-  let randomIndex = Math.floor(Math.random() * thisTag.length);
-  loadQuestion(thisTag[randomIndex]);
-};
-
-// Checks if the answer is correct or not and chooses new question based on it
-const submitAnswer = () => {
-  // Gets checked radio button
-  let checkedRadio = document.querySelector('input[name="answer"]:checked');
-  let correctAnswer = document.getElementById("answer1").getAttribute("value");
-
-  // Checks if a radio button is actually checked
-  if (checkedRadio !== null) {
-    // If radio button is checked, then get the value
-    let checkedRadioValue = document.querySelector(
-      'input[name="answer"]:checked'
-    ).value;
-    // Compares button value to the correct answer
-    if (checkedRadioValue === correctAnswer) {
-      alert("You got it right!");
-      loadRandomQuestion();
-    } else {
-      alert("You got it wrong!");
-      loadRandomQuestion();
-    }
-    // If no button is checked, tells user to choose an answer
-  } else {
-    alert("Choose an answer to submit!");
-  }
-};
-
-// Loads a random question when the page loads
-window.addEventListener("DOMContentLoaded", event => {
-  loadRandomQuestion();
+  buttonOne.addEventListener(
+    "click",
+    (userAnswer = buttonOne.getAttribute("value"))
+  );
+  buttonTwo.addEventListener(
+    "click",
+    (userAnswer = buttonTwo.getAttribute("value"))
+  );
+  buttonThree.addEventListener(
+    "click",
+    (userAnswer = buttonThree.getAttribute("value"))
+  );
+  buttonFour.addEventListener(
+    "click",
+    (userAnswer = buttonFour.getAttribute("value"))
+  );
+  submitButton.addEventListener("click", submitAnswer);
 });
