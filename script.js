@@ -35,7 +35,7 @@ questions.push({
   tag: "food"
 });
 
-// TODO follow dad's structure on Hangouts, comprehend it, ONE STEP AT A TIME:
+// TODO follow dad's structure, try DELETE keyword to delete an element in an array
 
 // first you pick a random number between 1 and 4
 // thats the spot for your correct answer
