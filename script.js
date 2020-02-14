@@ -36,6 +36,7 @@ questions.push({
 });
 
 // TODO follow dad's structure, try DELETE keyword to delete an element in an array
+// CURRENT TODO fucking Google how to randomize an array
 
 // first you pick a random number between 1 and 4
 // thats the spot for your correct answer
@@ -49,35 +50,60 @@ questions.push({
 // now you have a new array with the 3 wrong answers in a random order
 // then youcan just pull them off the array in the order they happen to be in and put them in the remaining answer slots
 
+// COMMENTED OUT FOR TESTING
 // Returns a randomized array
-const randomizeArray = question => {
-  // Random number between 0 and 3
-  let correctIndex = Math.floor(Math.random() * 3);
-  // Set random button value to the correct answer
-  document
-    .getElementById("answer" + correctIndex)
-    .setAttribute("value", question.correctAnswer);
+// const randomizeArray = question => {
+//   // Random number between 0 and 3
+//   let correctIndex = Math.floor(Math.random() * 3);
+//   // Set random button value to the correct answer
+//   document
+//     .getElementById("answer" + correctIndex)
+//     .setAttribute("value", question.correctAnswer);
 
-  // New arrays of wrong answers and then randomized array
-  let wrongAnswers = new Array();
-  let randomizedWrong = new Array();
-  wrongAnswers.push(question.wrongAnswers[0]);
-  wrongAnswers.push(question.wrongAnswers[1]);
-  wrongAnswers.push(question.wrongAnswers[2]);
-  // Random number between 0 and 2
-  let wrongArrayIndex1 = Math.floor(Math.random() * 2);
-  // Push element at index from above onto new array
-  randomizedWrong.push(wrongAnswers[wrongArrayIndex1]);
-  // Get rid of element at that index for the future
-  wrongAnswers.splice(wrongArrayIndex1, 1);
-  // Random number between 0 and 1
-  let wrongArrayIndex2 = Math.floor(Math.random());
-  // Push element at index from above onto new array
-  randomizedWrong.push(wrongAnswers[wrongArrayIndex2]);
-  // Get rid of element at that index for the future
-  wrongAnswers.splice(wrongArrayIndex2, 1);
-  // Push final element onto array
-  randomizedWrong.push(wrongAnswers[0]);
+//   // New arrays of wrong answers and then randomized array
+//   let wrongAnswers = new Array();
+//   let randomizedWrong = new Array();
+//   wrongAnswers.push(question.wrongAnswers[0]);
+//   wrongAnswers.push(question.wrongAnswers[1]);
+//   wrongAnswers.push(question.wrongAnswers[2]);
+//   // Random number between 0 and 2
+//   let wrongArrayIndex1 = Math.floor(Math.random() * 2);
+//   // Push element at index from above onto new array
+//   randomizedWrong.push(wrongAnswers[wrongArrayIndex1]);
+//   // Get rid of element at that index for the future
+//   wrongAnswers.splice(wrongArrayIndex1, 1);
+//   // Random number between 0 and 1
+//   let wrongArrayIndex2 = Math.floor(Math.random());
+//   // Push element at index from above onto new array
+//   randomizedWrong.push(wrongAnswers[wrongArrayIndex2]);
+//   // Get rid of element at that index for the future
+//   wrongAnswers.splice(wrongArrayIndex2, 1);
+//   // Push final element onto array
+//   randomizedWrong.push(wrongAnswers[0]);
+// };
+
+// Randomizes the questions, kind of works (not entirely sure)
+const randomizeAnswers = question => {
+  // Put both correct and wrong answers into a single array
+  let answers = question.wrongAnswers;
+  answers.push(question.correctAnswer);
+  let currentIndex = answers.length;
+  let temporaryValue;
+  let randomIndex;
+
+  // While there are remaining answers in the array
+  while (currentIndex !== 0) {
+    // Pick a remaining answer
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // Swap values
+    temporaryValue = answers[currentIndex];
+    answers[currentIndex] = answers[randomIndex];
+    answers[randomIndex] = temporaryValue;
+  }
+
+  return answers;
 };
 
 // Sets answers
@@ -100,17 +126,20 @@ const loadQuestion = question => {
   // Set question
   activeQuestion.innerHTML = question.question;
 
+  // Randomize the answers
+  let answers = randomizeAnswers(question);
+
   // Set text to answers
-  answer1Label.innerHTML = question.correctAnswer;
-  answer2Label.innerHTML = question.wrongAnswers[0];
-  answer3Label.innerHTML = question.wrongAnswers[1];
-  answer4Label.innerHTML = question.wrongAnswers[2];
+  answer1Label.innerHTML = answers[0];
+  answer2Label.innerHTML = answers[1];
+  answer3Label.innerHTML = answers[2];
+  answer4Label.innerHTML = answers[3];
 
   // Set value of radio buttons to answers
-  answer1.setAttribute("value", question.correctAnswer);
-  answer2.setAttribute("value", question.wrongAnswers[0]);
-  answer3.setAttribute("value", question.wrongAnswers[1]);
-  answer4.setAttribute("value", question.wrongAnswers[2]);
+  answer1.setAttribute("value", answers[0]);
+  answer2.setAttribute("value", answers[1]);
+  answer3.setAttribute("value", answers[2]);
+  answer4.setAttribute("value", answers[3]);
 };
 
 // Gets a random index of questions array, then loads a question of that index
@@ -133,6 +162,7 @@ const loadSameTag = tag => {
   loadQuestion(thisTag[randomIndex]);
 };
 
+// TODO make this work with randomized answers
 // Checks if the answer is correct or not and chooses new question based on it
 const submitAnswer = () => {
   // Gets checked radio button
