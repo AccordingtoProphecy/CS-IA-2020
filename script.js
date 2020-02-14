@@ -1,3 +1,6 @@
+// TODO get questions from Ms. Hardy
+
+// Questions is an array of objects, where each question object has a question, correct answer, array of wrong answers, and a tag
 let questions = new Array();
 
 questions.push({
@@ -35,22 +38,7 @@ questions.push({
   tag: "food"
 });
 
-// TODO follow dad's structure, try DELETE keyword to delete an element in an array
-// CURRENT TODO fucking Google how to randomize an array
-
-// first you pick a random number between 1 and 4
-// thats the spot for your correct answer
-// your incorrect answers are in an array of size 3
-// copy those into a new array
-// then pick a random number between 1 and 3
-// take that one out of the array and put into a new array
-// then pick a random number between 1 and 2
-// and grab that one and put it in the new array
-// then put the last one in your new array
-// now you have a new array with the 3 wrong answers in a random order
-// then youcan just pull them off the array in the order they happen to be in and put them in the remaining answer slots
-
-// COMMENTED OUT FOR TESTING
+// COMMENTED OUT, DOESN't WORK
 // Returns a randomized array
 // const randomizeArray = question => {
 //   // Random number between 0 and 3
@@ -167,6 +155,7 @@ const loadSameTag = tag => {
 const submitAnswer = () => {
   // Gets checked radio button
   let checkedRadio = document.querySelector('input[name="answer"]:checked');
+  // FIX ASAP TO GET THE ACTUAL CORRECT ANSwER
   let correctAnswer = document.getElementById("answer1").getAttribute("value");
 
   // Checks if a radio button is actually checked
@@ -175,7 +164,7 @@ const submitAnswer = () => {
     let checkedRadioValue = document.querySelector(
       'input[name="answer"]:checked'
     ).value;
-    // Compares button value to the correct answer
+    // Compares button value to the first button value, FIX ASAP
     if (checkedRadioValue === correctAnswer) {
       alert("You got it right!");
       loadRandomQuestion();
