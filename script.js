@@ -70,6 +70,7 @@ questions.push({
 //   randomizedWrong.push(wrongAnswers[0]);
 // };
 
+// TODO Something might be fucky with randomizing answers
 // Randomizes the answers for a question
 const randomizeAnswers = question => {
   // Put both correct and wrong answers into a single array
@@ -111,7 +112,6 @@ const loadQuestion = question => {
   let answer3 = document.getElementById("answer3");
   let answer4 = document.getElementById("answer4");
 
-  // TODO Fix? Program doesn't seem to like this line sometimes
   // Set question
   activeQuestion.innerHTML = question.question;
 
@@ -138,23 +138,22 @@ const loadRandomQuestion = () => {
 };
 
 // Loads a question with a different tag, for CORRECT ANSWERS
-// TODO Fix this and loadSameTag, something fucky seems to be happening with question loading
-const loadDifferentTag = question => {
+const loadDifferentTag = currentQuestion => {
   // Get the current tag
-  let currentTag = question.tag;
+  let currentTag = currentQuestion.tag;
   // Get a new array of all questions with a different tag
-  let notThisTag = questions.filter(tag => tag !== currentTag);
+  let notThisTag = questions.filter(question => question.tag !== currentTag);
   // Find a new question with a different tag
   let randomIndex = Math.floor(Math.random() * notThisTag.length);
   loadQuestion(notThisTag[randomIndex]);
 };
 
 // Loads a question with the same tag, for INCORRECT ANSWERS
-const loadSameTag = question => {
+const loadSameTag = currentQuestion => {
   // Get the current tag
-  let currentTag = question.tag;
+  let currentTag = currentQuestion.tag;
   // Get a new array of all questions with the same tag
-  let thisTag = questions.filter(tag => tag === currentTag);
+  let thisTag = questions.filter(question => question.tag === currentTag);
   // Find a new question with the same tag
   let randomIndex = Math.floor(Math.random() * thisTag.length);
   loadQuestion(thisTag[randomIndex]);
