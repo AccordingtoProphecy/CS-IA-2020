@@ -70,7 +70,7 @@ questions.push({
 //   randomizedWrong.push(wrongAnswers[0]);
 // };
 
-// Randomizes the questions, kind of works (not entirely sure)
+// Randomizes the answers for a question
 const randomizeAnswers = question => {
   // Put both correct and wrong answers into a single array
   let answers = question.wrongAnswers;
@@ -155,8 +155,8 @@ const loadSameTag = tag => {
 const submitAnswer = () => {
   // Gets checked radio button
   let checkedRadio = document.querySelector('input[name="answer"]:checked');
-  // FIX ASAP TO GET THE ACTUAL CORRECT ANSwER
-  let correctAnswer = document.getElementById("answer1").getAttribute("value");
+  // Checking if answer is wrong
+  let wrongCount = 0;
 
   // Checks if a radio button is actually checked
   if (checkedRadio !== null) {
@@ -164,13 +164,23 @@ const submitAnswer = () => {
     let checkedRadioValue = document.querySelector(
       'input[name="answer"]:checked'
     ).value;
-    // Compares button value to the first button value, FIX ASAP
-    if (checkedRadioValue === correctAnswer) {
-      alert("You got it right!");
+
+    // Compare each correct answer to the inputted answer
+    questions.forEach(question => {
+      if (checkedRadioValue === question.correctAnswer) {
+        alert("cool");
+        loadRandomQuestion();
+        return;
+      } else {
+        wrongCount += 1;
+      }
+    });
+
+    // If no correct answers match the input, alert user (TEMPORARY)
+    if (wrongCount === questions.length) {
+      alert("not cool");
       loadRandomQuestion();
-    } else {
-      alert("You got it wrong!");
-      loadRandomQuestion();
+      return;
     }
     // If no button is checked, tells user to choose an answer
   } else {
