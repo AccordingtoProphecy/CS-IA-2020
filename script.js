@@ -38,7 +38,7 @@ questions.push({
   tag: "food"
 });
 
-// COMMENTED OUT, DOESN't WORK
+// COMMENTED OUT, DOESN't WORK, KEEPING JUST IN CASE
 // Returns a randomized array
 // const randomizeArray = question => {
 //   // Random number between 0 and 3
@@ -111,6 +111,7 @@ const loadQuestion = question => {
   let answer3 = document.getElementById("answer3");
   let answer4 = document.getElementById("answer4");
 
+  // TODO Fix? Program doesn't seem to like this line sometimes
   // Set question
   activeQuestion.innerHTML = question.question;
 
@@ -136,27 +137,41 @@ const loadRandomQuestion = () => {
   loadQuestion(questions[randomIndex]);
 };
 
-// Loads a question with a different tag
-const loadDifferentTag = tag => {
-  let notThisTag = questions.filter(tag => question.tag !== tag);
+// Loads a question with a different tag, for CORRECT ANSWERS
+// TODO Fix this and loadSameTag, something fucky seems to be happening with question loading
+const loadDifferentTag = question => {
+  // Get the current tag
+  let currentTag = question.tag;
+  // Get a new array of all questions with a different tag
+  let notThisTag = questions.filter(tag => tag !== currentTag);
+  // Find a new question with a different tag
   let randomIndex = Math.floor(Math.random() * notThisTag.length);
   loadQuestion(notThisTag[randomIndex]);
 };
 
-// Loads a question with the same tag
-const loadSameTag = tag => {
-  let thisTag = questions.filter(tag => question.tag === tag);
+// Loads a question with the same tag, for INCORRECT ANSWERS
+const loadSameTag = question => {
+  // Get the current tag
+  let currentTag = question.tag;
+  // Get a new array of all questions with the same tag
+  let thisTag = questions.filter(tag => tag === currentTag);
+  // Find a new question with the same tag
   let randomIndex = Math.floor(Math.random() * thisTag.length);
   loadQuestion(thisTag[randomIndex]);
 };
 
-// TODO make this work with randomized answers
 // Checks if the answer is correct or not and chooses new question based on it
 const submitAnswer = () => {
   // Gets checked radio button
   let checkedRadio = document.querySelector('input[name="answer"]:checked');
   // Checking if answer is wrong
   let wrongCount = 0;
+  // Getting the current question
+  let question = document.getElementById("question").innerHTML;
+  let currentIndex = questions.findIndex(
+    element => element.question === question
+  );
+  let currentQuestion = questions[currentIndex];
 
   // Checks if a radio button is actually checked
   if (checkedRadio !== null) {
@@ -169,18 +184,16 @@ const submitAnswer = () => {
     questions.forEach(question => {
       if (checkedRadioValue === question.correctAnswer) {
         alert("cool");
-        loadRandomQuestion();
-        return;
+        loadDifferentTag(currentQuestion);
       } else {
         wrongCount += 1;
       }
     });
 
-    // If no correct answers match the input, alert user (TEMPORARY)
+    // If no correct answers match the input, alert user
     if (wrongCount === questions.length) {
       alert("not cool");
-      loadRandomQuestion();
-      return;
+      loadSameTag(currentQuestion);
     }
     // If no button is checked, tells user to choose an answer
   } else {
