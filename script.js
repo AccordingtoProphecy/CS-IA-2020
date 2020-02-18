@@ -38,6 +38,15 @@ questions.push({
   tag: "food"
 });
 
+// Dictionary for correct answers, not sure if I'll use due to efficiency and rewriting code
+let correctAnswers = {
+  correct1: questions[0].correctAnswer,
+  correct2: questions[1].correctAnswer,
+  correct3: questions[2].correctAnswer,
+  correct4: questions[3].correctAnswer,
+  correct5: questions[4].correctAnswer
+};
+
 // COMMENTED OUT, DOESN't WORK, KEEPING JUST IN CASE
 // Returns a randomized array
 // const randomizeArray = question => {
@@ -97,6 +106,8 @@ const randomizeAnswers = question => {
 
 // Sets answers
 const loadQuestion = question => {
+  // Randomize the answers
+  let answers = randomizeAnswers(question);
   // Get question
   let activeQuestion = document.getElementById("question");
 
@@ -114,9 +125,6 @@ const loadQuestion = question => {
 
   // Set question
   activeQuestion.innerHTML = question.question;
-
-  // Randomize the answers
-  let answers = randomizeAnswers(question);
 
   // Set text to answers
   answer1Label.innerHTML = answers[0];
