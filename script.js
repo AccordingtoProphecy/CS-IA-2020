@@ -1,5 +1,7 @@
 // TODO get questions from Ms. Hardy
 
+// Score for the player
+let score = 0;
 // Questions is an array of objects, where each question object has a question, correct answer, array of wrong answers, and a tag
 let questions = new Array();
 
@@ -86,8 +88,8 @@ const randomizeAnswers = question => {
   let answers = question.wrongAnswers;
   answers.push(question.correctAnswer);
   let currentIndex = answers.length;
-  let temporaryValue;
-  let randomIndex;
+  let temporaryValue = null;
+  let randomIndex = null;
 
   // While there are remaining answers in the array
   while (currentIndex !== 0) {
@@ -183,14 +185,13 @@ const submitAnswer = () => {
   // Checks if a radio button is actually checked
   if (checkedRadio !== null) {
     // If radio button is checked, then get the value
-    let checkedRadioValue = document.querySelector(
-      'input[name="answer"]:checked'
-    ).value;
+    let checkedRadioValue = checkedRadio.value;
 
-    // Compare each correct answer to the inputted answer
+    // Compare each correct answer to the inputted answer and increase score
     questions.forEach(question => {
       if (checkedRadioValue === question.correctAnswer) {
-        alert("cool");
+        alert("Correct!");
+        score += 50;
         loadDifferentTag(currentQuestion);
       } else {
         wrongCount += 1;
@@ -199,7 +200,7 @@ const submitAnswer = () => {
 
     // If no correct answers match the input, alert user
     if (wrongCount === questions.length) {
-      alert("not cool");
+      alert("Not correct.");
       loadSameTag(currentQuestion);
     }
     // If no button is checked, tells user to choose an answer
