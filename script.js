@@ -5,39 +5,133 @@ let score = 0;
 // Questions is an array of objects, where each question object has a question, correct answer, array of wrong answers, and a tag
 let questions = new Array();
 
+// Government and the state
 questions.push({
-  question: "How old are you?",
-  correctAnswer: "17",
-  wrongAnswers: ["10", "45", "100"],
-  tag: "age"
+  question: "Because the United States is a sovereign state, it",
+  correctAnswer: "can determine its own form of government.",
+  wrongAnswers: [
+    "is made up of fifty smaller sovereign states.",
+    "is subordinate to a higher international authority.",
+    "can impose its will on all other nations of the world."
+  ],
+  tag: "Government and the state"
 });
 
 questions.push({
-  question: "What is your first name?",
-  correctAnswer: "Orion",
-  wrongAnswers: ["James", "Sam", "Max"],
-  tag: "name"
+  question:
+    "Which theory of the origin of the state most strongly influenced the formation of the government of the United States?",
+  correctAnswer: "Social contract theory",
+  wrongAnswers: ["Evolutionary theory", "Divine right theory", "Force theory"],
+  tag: "Government and the state"
 });
 
 questions.push({
-  question: "What is your last name?",
-  correctAnswer: "Capell",
-  wrongAnswers: ["McCreery", "Morita-McVey", "Means"],
-  tag: "name"
+  question: "What are the 4 defining characteristics of a state?",
+  correctAnswer: "Population, territory, sovereignty, and government",
+  wrongAnswers: [
+    "The force theory, the evolutionary theory, the divine right theory, and the social contract theory.",
+    "Liberty, justice, laws, and a constitution.",
+    "A leader, a legislature, a court system, and a military force."
+  ],
+  tag: "Government and the state"
 });
 
 questions.push({
-  question: "What is your favorite food?",
-  correctAnswer: "Sushi",
-  wrongAnswers: ["Brussel Sprouts", "Mushrooms", "Steak"],
-  tag: "food"
+  question:
+    "In a _______, there is an absolute ruler who is not held responsible to the will of the people.",
+  correctAnswer: "dictatorship",
+  wrongAnswers: ["consitutional monarchy", "democracy", "government"],
+  tag: "Government and the state"
+});
+
+// The Constitution
+questions.push({
+  question:
+    "A governmental action found to violate some provision in the Constitution is said to be",
+  correctAnswer: "unconstitutional.",
+  wrongAnswers: ["partisan.", "anti-federalist.", "impeachable."],
+  tag: "The Constitution"
 });
 
 questions.push({
-  question: "What is your favorite drink?",
-  correctAnswer: "Coke",
-  wrongAnswers: ["Milk", "Sprite", "Pepsi"],
-  tag: "food"
+  question:
+    "The principle of 'popular sovereignty' states that all political power resides in the",
+  correctAnswer: "people.",
+  wrongAnswers: ["federal government.", "Constitution.", "rule of law."],
+  tag: "The Constitution"
+});
+
+questions.push({
+  question:
+    "The three branches of government are tied together by a system of _______, whereby each branch is subject to constitutional restraints by the other branches.",
+  correctAnswer: "checks and balances",
+  wrongAnswers: [
+    "judicial review",
+    "constitutionalism",
+    "separation of powers"
+  ],
+  tag: "The Constitution"
+});
+
+questions.push({
+  question:
+    "Which of the following is NOT one of the six basic principles of the Constitution?",
+  correctAnswer: "Unlimited government",
+  wrongAnswers: ["Checks and balances", "Federalism", "Separation of powers"],
+  tag: "The Constitution"
+});
+
+questions.push({
+  question:
+    "Which 2 principles of the Constitution are illustrated by the formal amendment process?",
+  correctAnswer: "(1) Federalism and (2) popular sovereignty",
+  wrongAnswers: [
+    "(1) Separation of powers and (2) checks and balances",
+    "(1) Judicial review and (2) federalism",
+    "(1) Popular sovereignty and (2) limited government"
+  ],
+  tag: "The Constitution"
+});
+
+questions.push({
+  question:
+    "An amendment may be proposed by a _______ vote in each house of Congress and be ratified by _______ of the State legislatures.",
+  correctAnswer: "2/3; 3/4",
+  wrongAnswers: ["2/3; a majority", "marjority; 3/4", "unanimous; a majority"],
+  tag: "The Constitution"
+});
+
+// Federalism
+questions.push({
+  question: "Which was NOT a concern of the Framers about limited government?",
+  correctAnswer: "A strong central government helps ensure personal freedom.",
+  wrongAnswers: [
+    "Exercise of governmental power must be restrained.",
+    "Dividing governmental power among different groups limits it.",
+    "Governmental power poses a threat to individual liberty."
+  ],
+  tag: "Federalism"
+});
+
+questions.push({
+  question:
+    "What powers given to the National Government are spelled out in the Constitution?",
+  correctAnswer: "Expressed powers",
+  wrongAnswers: ["Implied powers", "Inherent powers", "Division of powers"],
+  tag: "Federalism"
+});
+
+questions.push({
+  question:
+    "Federalism is a system of government in which a written constitution does what?",
+  correctAnswer:
+    "Divides the powers of government between a national government and several regional governemtns.",
+  wrongAnswers: [
+    "Divides the powers of government between three distinct branches: executive, legislative, and judicial.",
+    "Divides the powers of government between church and state.",
+    "Divides the powers of government on a territorial basis among several states and provinces."
+  ],
+  tag: "Federalism"
 });
 
 // Dictionary for correct answers, not sure if I'll use due to efficiency and rewriting code
