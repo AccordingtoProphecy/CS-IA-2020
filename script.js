@@ -309,52 +309,54 @@ const loadSameTag = currentQuestion => {
 //#region Submit answer
 // Checks if the answer is correct or not and chooses new question based on it
 const submitAnswer = () => {
-  // If user hasn't reached the end of the quiz
-  if (currentQuestionIndex !== numberOfQuestions) {
-    // Gets checked radio button
-    let checkedRadio = document.querySelector('input[name="answer"]:checked');
-    // Checking if answer is wrong
-    let wrongCount = 0;
-    // Getting the current question
-    let question = document.getElementById("question").innerHTML;
-    let currentIndex = questions.findIndex(
-      element => element.question === question
-    );
-    let currentQuestion = questions[currentIndex];
+  // Gets checked radio button
+  let checkedRadio = document.querySelector('input[name="answer"]:checked');
+  // Checking if answer is wrong
+  let wrongCount = 0;
+  // Getting the current question
+  let question = document.getElementById("question").innerHTML;
+  let currentIndex = questions.findIndex(
+    element => element.question === question
+  );
+  let currentQuestion = questions[currentIndex];
 
-    // Checks if a radio button is actually checked
-    if (checkedRadio !== null) {
-      // If radio button is checked, then get the value
-      let checkedRadioValue = checkedRadio.value;
+  // Checks if a radio button is actually checked
+  if (checkedRadio !== null) {
+    // If radio button is checked, then get the value
+    let checkedRadioValue = checkedRadio.value;
 
-      // Compare each correct answer to the inputted answer and increase score
-      questions.forEach(question => {
-        if (checkedRadioValue === question.correctAnswer) {
-          alert("Correct!");
-          score += 50;
+    // Compare each correct answer to the inputted answer and increase score
+    questions.forEach(question => {
+      if (checkedRadioValue === question.correctAnswer) {
+        alert("Correct!");
+        score += 50;
+        if (currentQuestionIndex !== numberOfQuestions) {
           currentQuestionIndex += 1;
           loadDifferentTag(currentQuestion);
         } else {
-          wrongCount += 1;
+          alert("Test complete");
         }
-      });
+      } else {
+        wrongCount += 1;
+      }
+    });
 
-      // If no correct answers match the input, alert user
-      if (wrongCount === questions.length) {
-        alert("Not correct.");
+    // If no correct answers match the input, alert user
+    if (wrongCount === questions.length) {
+      alert("Not correct.");
+      if (currentQuestionIndex !== numberOfQuestions) {
         currentQuestionIndex += 1;
         loadSameTag(currentQuestion);
+      } else {
+        alert("Test complete");
       }
-      // If no button is checked, tells user to choose an answer
-    } else {
-      alert("Choose an answer to submit!");
     }
-    sessionStorage.setItem("score", score);
-    sessionStorage.setItem("currentQuestionIndex", currentQuestionIndex);
-    // If user has answered 5 questions
+    // If no button is checked, tells user to choose an answer
   } else {
-    alert("Test complete");
+    alert("Choose an answer to submit!");
   }
+  sessionStorage.setItem("score", score);
+  sessionStorage.setItem("currentQuestionIndex", currentQuestionIndex);
 };
 //#endregion
 
