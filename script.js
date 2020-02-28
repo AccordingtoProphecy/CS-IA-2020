@@ -219,6 +219,9 @@ const loadQuestion = question => {
   let answer3 = document.getElementById("answer3");
   let answer4 = document.getElementById("answer4");
 
+  // Get score
+  let scoreDIV = document.getElementById("score");
+
   // Set question
   activeQuestion.innerHTML = question.question;
 
@@ -233,6 +236,9 @@ const loadQuestion = question => {
   answer2.setAttribute("value", answers[1]);
   answer3.setAttribute("value", answers[2]);
   answer4.setAttribute("value", answers[3]);
+
+  // Display score
+  scoreDIV.innerHTML = "Score: " + score;
 };
 
 // Gets a random index of questions array, then loads a question of that index
@@ -247,6 +253,7 @@ const loadDifferentTag = currentQuestion => {
   let currentTag = currentQuestion.tag;
   // Get a new array of all questions with a different tag
   let notThisTag = questions.filter(question => question.tag !== currentTag);
+  notThisTag.splice(notThisTag.indexOf(currentQuestion), 1);
   // Find a new question with a different tag
   let randomIndex = Math.floor(Math.random() * notThisTag.length);
   loadQuestion(notThisTag[randomIndex]);
@@ -258,6 +265,7 @@ const loadSameTag = currentQuestion => {
   let currentTag = currentQuestion.tag;
   // Get a new array of all questions with the same tag
   let thisTag = questions.filter(question => question.tag === currentTag);
+  thisTag.splice(thisTag.indexOf(currentQuestion), 1);
   // Find a new question with the same tag
   let randomIndex = Math.floor(Math.random() * thisTag.length);
   loadQuestion(thisTag[randomIndex]);
