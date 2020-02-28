@@ -1,14 +1,18 @@
-// TODO get questions from Ms. Hardy
-
 // Initialize score for the player
 let score = 0;
 // Initialize current question index
 let currentQuestionIndex = 0;
 // Total number of questions to answer
-let numberOfQuestions = 5;
+let numberOfQuestions = 4;
 // Questions is an array of objects, where each question object has a question, correct answer, array of wrong answers, and a tag
 let questions = new Array();
 
+// TODO use window.sessionStorage with currentQuestionIndex and numberOfQuestion
+// Make sure the score and question index are stored in the current session
+// sessionStorage.setItem("score", score);
+// sessionStorage.setItem("currentQuestionIndex", currentQuestionIndex);
+
+//#region Questions
 // Government and the state
 questions.push({
   question: "Because the United States is a sovereign state, it",
@@ -137,6 +141,7 @@ questions.push({
   ],
   tag: "Federalism"
 });
+//#endregion
 
 // Dictionary for correct answers, not sure if I'll use due to efficiency and rewriting code
 let correctAnswers = {
@@ -155,6 +160,7 @@ let correctAnswers = {
   correct13: questions[12].correctAnswer
 };
 
+//#region Commented out randomizer
 // COMMENTED OUT, DOESN't WORK, KEEPING JUST IN CASE
 // Returns a randomized array
 // const randomizeArray = question => {
@@ -186,8 +192,9 @@ let correctAnswers = {
 //   // Push final element onto array
 //   randomizedWrong.push(wrongAnswers[0]);
 // };
+//#endregion
 
-// TODO Something might be fucky with randomizing answers
+//#region Randomize answers
 // Randomizes the answers for a question
 const randomizeAnswers = question => {
   // Put both correct and wrong answers into a single array
@@ -211,11 +218,17 @@ const randomizeAnswers = question => {
 
   return answers;
 };
+//#endregion
 
+//#region Load question
 // Sets answers
 const loadQuestion = question => {
   // Randomize the answers
   let answers = randomizeAnswers(question);
+
+  // Get score
+  let scoreDIV = document.getElementById("score");
+
   // Get question
   let activeQuestion = document.getElementById("question");
 
@@ -231,8 +244,11 @@ const loadQuestion = question => {
   let answer3 = document.getElementById("answer3");
   let answer4 = document.getElementById("answer4");
 
-  // Get score
-  let scoreDIV = document.getElementById("score");
+  // Get index
+  let indexDIV = document.getElementById("index");
+
+  // Display current index
+  indexDIV.innerHTML = "Question #" + (currentQuestionIndex + 1);
 
   // Set question
   activeQuestion.innerHTML = question.question;
@@ -252,13 +268,17 @@ const loadQuestion = question => {
   // Display score
   scoreDIV.innerHTML = "Score: " + score;
 };
+//#endregion
 
+//#region Load random question
 // Gets a random index of questions array, then loads a question of that index
 const loadRandomQuestion = () => {
   let randomIndex = Math.floor(Math.random() * questions.length);
   loadQuestion(questions[randomIndex]);
 };
+//#endregion
 
+//#region Load different tag
 // Loads a question with a different tag, for CORRECT ANSWERS
 const loadDifferentTag = currentQuestion => {
   // Get the current tag
@@ -270,7 +290,9 @@ const loadDifferentTag = currentQuestion => {
   let randomIndex = Math.floor(Math.random() * notThisTag.length);
   loadQuestion(notThisTag[randomIndex]);
 };
+//#endregion
 
+//#region Load same tag
 // Loads a question with the same tag, for INCORRECT ANSWERS
 const loadSameTag = currentQuestion => {
   // Get the current tag
@@ -282,7 +304,9 @@ const loadSameTag = currentQuestion => {
   let randomIndex = Math.floor(Math.random() * thisTag.length);
   loadQuestion(thisTag[randomIndex]);
 };
+//#endregion
 
+//#region Submit answer
 // Checks if the answer is correct or not and chooses new question based on it
 const submitAnswer = () => {
   // If user hasn't reached the end of the quiz
@@ -325,10 +349,14 @@ const submitAnswer = () => {
     } else {
       alert("Choose an answer to submit!");
     }
+    sessionStorage.setItem("score", score);
+    sessionStorage.setItem("currentQuestionIndex", currentQuestionIndex);
+    // If user has answered 5 questions
   } else {
     alert("Test complete");
   }
 };
+//#endregion
 
 // Loads a random question when the page loads
 window.addEventListener("DOMContentLoaded", event => {
