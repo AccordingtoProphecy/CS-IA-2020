@@ -1,7 +1,11 @@
 // TODO get questions from Ms. Hardy
 
-// Score for the player
+// Initialize score for the player
 let score = 0;
+// Initialize current question index
+let currentQuestionIndex = 0;
+// Total number of questions to answer
+let numberOfQuestions = 5;
 // Questions is an array of objects, where each question object has a question, correct answer, array of wrong answers, and a tag
 let questions = new Array();
 
@@ -140,7 +144,15 @@ let correctAnswers = {
   correct2: questions[1].correctAnswer,
   correct3: questions[2].correctAnswer,
   correct4: questions[3].correctAnswer,
-  correct5: questions[4].correctAnswer
+  correct5: questions[4].correctAnswer,
+  correct6: questions[5].correctAnswer,
+  correct7: questions[6].correctAnswer,
+  correct8: questions[7].correctAnswer,
+  correct9: questions[8].correctAnswer,
+  correct10: questions[9].correctAnswer,
+  correct11: questions[10].correctAnswer,
+  correct12: questions[11].correctAnswer,
+  correct13: questions[12].correctAnswer
 };
 
 // COMMENTED OUT, DOESN't WORK, KEEPING JUST IN CASE
@@ -273,41 +285,48 @@ const loadSameTag = currentQuestion => {
 
 // Checks if the answer is correct or not and chooses new question based on it
 const submitAnswer = () => {
-  // Gets checked radio button
-  let checkedRadio = document.querySelector('input[name="answer"]:checked');
-  // Checking if answer is wrong
-  let wrongCount = 0;
-  // Getting the current question
-  let question = document.getElementById("question").innerHTML;
-  let currentIndex = questions.findIndex(
-    element => element.question === question
-  );
-  let currentQuestion = questions[currentIndex];
+  // If user hasn't reached the end of the quiz
+  if (currentQuestionIndex !== numberOfQuestions) {
+    // Gets checked radio button
+    let checkedRadio = document.querySelector('input[name="answer"]:checked');
+    // Checking if answer is wrong
+    let wrongCount = 0;
+    // Getting the current question
+    let question = document.getElementById("question").innerHTML;
+    let currentIndex = questions.findIndex(
+      element => element.question === question
+    );
+    let currentQuestion = questions[currentIndex];
 
-  // Checks if a radio button is actually checked
-  if (checkedRadio !== null) {
-    // If radio button is checked, then get the value
-    let checkedRadioValue = checkedRadio.value;
+    // Checks if a radio button is actually checked
+    if (checkedRadio !== null) {
+      // If radio button is checked, then get the value
+      let checkedRadioValue = checkedRadio.value;
 
-    // Compare each correct answer to the inputted answer and increase score
-    questions.forEach(question => {
-      if (checkedRadioValue === question.correctAnswer) {
-        alert("Correct!");
-        score += 50;
-        loadDifferentTag(currentQuestion);
-      } else {
-        wrongCount += 1;
+      // Compare each correct answer to the inputted answer and increase score
+      questions.forEach(question => {
+        if (checkedRadioValue === question.correctAnswer) {
+          alert("Correct!");
+          score += 50;
+          currentQuestionIndex += 1;
+          loadDifferentTag(currentQuestion);
+        } else {
+          wrongCount += 1;
+        }
+      });
+
+      // If no correct answers match the input, alert user
+      if (wrongCount === questions.length) {
+        alert("Not correct.");
+        currentQuestionIndex += 1;
+        loadSameTag(currentQuestion);
       }
-    });
-
-    // If no correct answers match the input, alert user
-    if (wrongCount === questions.length) {
-      alert("Not correct.");
-      loadSameTag(currentQuestion);
+      // If no button is checked, tells user to choose an answer
+    } else {
+      alert("Choose an answer to submit!");
     }
-    // If no button is checked, tells user to choose an answer
   } else {
-    alert("Choose an answer to submit!");
+    alert("Test complete");
   }
 };
 
