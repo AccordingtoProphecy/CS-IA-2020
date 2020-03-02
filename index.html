@@ -1,19 +1,28 @@
 <html>
     <head>
         <title>Gov/Econ Game</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="gamestyle.css">
         <script src="gamescript.js"></script>
     </head>
 
     <body>
-        <div id="activeQuestion">
-            <div id="index"></div>
-            <div id="question"></div>
-            <div><input type="radio" name="answer" id="answer1"><label for="answer1" id="answer1Label"></label></div>
-            <div><input type="radio" name="answer" id="answer2"><label for="answer2" id="answer2Label"></label></div>
-            <div><input type="radio" name="answer" id="answer3"><label for="answer3" id="answer3Label"></label></div>
-            <div><input type="radio" name="answer" id="answer4"><label for="answer4" id="answer4Label"></label></div>
-            <button id="submit" onclick="submitAnswer(); return false">Submit</button>
+        <div id="mainDIV">
+            <div><h2>Gov/Econ Game</h2></div>
+            <div id="activeQuestion">
+                <div id="index"></div>
+                <br />
+                <div id="question"></div>
+                <br />
+                <div id="answersDIV">
+                    <div><input type="radio" name="answer" id="answer1"><label for="answer1" id="answer1Label"></label></div>
+                    <div><input type="radio" name="answer" id="answer2"><label for="answer2" id="answer2Label"></label></div>
+                    <div><input type="radio" name="answer" id="answer3"><label for="answer3" id="answer3Label"></label></div>
+                    <div><input type="radio" name="answer" id="answer4"><label for="answer4" id="answer4Label"></label></div>
+                </div>
+                <br />
+                <button id="submit" onclick="submitAnswer(); return false">Submit</button>
+            </div>
+            <br />
             <div id="score"></div>
         </div>
     </body>
