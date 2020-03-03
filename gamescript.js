@@ -7,11 +7,6 @@ let numberOfQuestions = 4;
 // Questions is an array of objects, where each question object has a question, correct answer, array of wrong answers, and a tag
 let questions = new Array();
 
-// TODO use window.sessionStorage with currentQuestionIndex and numberOfQuestion
-// Make sure the score and question index are stored in the current session
-// sessionStorage.setItem("score", score);
-// sessionStorage.setItem("currentQuestionIndex", currentQuestionIndex);
-
 //#region Questions
 //#region Government and the state
 // Government and the state
@@ -147,57 +142,6 @@ questions.push({
   tag: "Federalism"
 });
 //#endregion
-//#endregion
-
-// Dictionary for correct answers, not sure if I'll use due to efficiency and rewriting code
-let correctAnswers = {
-  correct1: questions[0].correctAnswer,
-  correct2: questions[1].correctAnswer,
-  correct3: questions[2].correctAnswer,
-  correct4: questions[3].correctAnswer,
-  correct5: questions[4].correctAnswer,
-  correct6: questions[5].correctAnswer,
-  correct7: questions[6].correctAnswer,
-  correct8: questions[7].correctAnswer,
-  correct9: questions[8].correctAnswer,
-  correct10: questions[9].correctAnswer,
-  correct11: questions[10].correctAnswer,
-  correct12: questions[11].correctAnswer,
-  correct13: questions[12].correctAnswer
-};
-
-//#region Commented out randomizer
-// COMMENTED OUT, DOESN't WORK, KEEPING JUST IN CASE
-// Returns a randomized array
-// const randomizeArray = question => {
-//   // Random number between 0 and 3
-//   let correctIndex = Math.floor(Math.random() * 3);
-//   // Set random button value to the correct answer
-//   document
-//     .getElementById("answer" + correctIndex)
-//     .setAttribute("value", question.correctAnswer);
-
-//   // New arrays of wrong answers and then randomized array
-//   let wrongAnswers = new Array();
-//   let randomizedWrong = new Array();
-//   wrongAnswers.push(question.wrongAnswers[0]);
-//   wrongAnswers.push(question.wrongAnswers[1]);
-//   wrongAnswers.push(question.wrongAnswers[2]);
-//   // Random number between 0 and 2
-//   let wrongArrayIndex1 = Math.floor(Math.random() * 2);
-//   // Push element at index from above onto new array
-//   randomizedWrong.push(wrongAnswers[wrongArrayIndex1]);
-//   // Get rid of element at that index for the future
-//   wrongAnswers.splice(wrongArrayIndex1, 1);
-//   // Random number between 0 and 1
-//   let wrongArrayIndex2 = Math.floor(Math.random());
-//   // Push element at index from above onto new array
-//   randomizedWrong.push(wrongAnswers[wrongArrayIndex2]);
-//   // Get rid of element at that index for the future
-//   wrongAnswers.splice(wrongArrayIndex2, 1);
-//   // Push final element onto array
-//   randomizedWrong.push(wrongAnswers[0]);
-// };
 //#endregion
 
 //#region Randomize answers
@@ -342,7 +286,7 @@ const submitAnswer = () => {
           loadDifferentTag(currentQuestion);
         } else {
           // If user is done, store score and redirect to final page
-          alert("Quiz complete");
+          alert("Quiz complete.");
           sessionStorage.setItem("finalScore", score);
           window.location.href = "finalpage.html";
         }
