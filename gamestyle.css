@@ -2,4 +2,11 @@
   border-width: 0.5em;
   text-align: center;
   font-family: sans-serif;
+  font-size: 1.25em;
+}
+
+input[type="radio"] {
+  border: 0px;
+  width: 1.25em;
+  height: 1.25em;
 }
